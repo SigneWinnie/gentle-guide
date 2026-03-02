@@ -4,7 +4,7 @@
 
 ### Prerequisites
 - Java 17+
-- Maven 3.8+
+- Maven 3.8+ (or use the Maven Wrapper: run `mvn -N io.takari:maven:wrapper` to generate `mvnw` scripts once you have Maven installed)
 - MySQL 8.0+
 
 ### Setup Instructions

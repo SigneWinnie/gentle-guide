@@ -133,30 +133,27 @@ cd backend
 ls -la
 ```
 
-Expected files:
+Expected files and layout:
 ```
 backend/
 ├── pom.xml                              # Maven configuration
-├── application.properties               # Spring Boot config
-├── StudentManagementApplication.java    # Main application
-├── Student.java
-├── Course.java
-├── Grade.java
-├── Registration.java
-├── Room.java
-├── Schedule.java
-├── StudentRepository.java
-├── CourseRepository.java
-├── ... (other repositories)
-├── StudentService.java
-├── CourseService.java
-├── ... (other services)
-├── StudentController.java
-├── CourseController.java
-├── ... (other controllers)
+├── application.properties               # Spring Boot config (in src/main/resources)
 ├── README.md
 ├── POSTMAN_TESTING_GUIDE.md
-└── BACKEND_SETUP_GUIDE.md
+├── BACKEND_SETUP_GUIDE.md
+├── BACKEND_STRUCTURE.md
+├── setup-database.sql
+└── src
+    └── main
+        ├── java
+        │   └── com/isj/studentmanagement/
+        │       ├── StudentManagementApplication.java
+        │       ├── controller/          # REST controllers (StudentController.java, CourseController.java, ...)
+        │       ├── service/             # Business logic (StudentService.java, ...)
+        │       ├── repository/          # JPA repositories (StudentRepository.java, ...)
+        │       └── model/               # Entity classes (Student.java, Course.java, Grade.java, Registration.java, Room.java, Schedule.java)
+        └── resources/
+            └── application.properties
 ```
 
 ---

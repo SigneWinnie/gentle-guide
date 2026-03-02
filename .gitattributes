@@ -1,0 +1,25 @@
+# Auto-detect text files and normalize them
+* text=auto
+
+# Shell scripts should keep LF (Unix style)
+*.sh text eol=lf
+
+# Batch and PowerShell scripts should use CRLF on Windows
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Maven wrapper scripts: keep LF for mvnw, CRLF for mvnw.cmd
+/mvnw text eol=lf
+/mvnw.cmd text eol=crlf
+
+# Java and XML and properties are text
+*.java text
+*.xml text
+*.properties text
+*.md text
+*.yaml text
+*.yml text
+
+# Ensure .jar/.exe are binary
+*.jar binary
+*.exe binary
