@@ -1,0 +1,5 @@
+com\isj\roommanagement\repository\RoomRepository.class
+com\isj\roommanagement\service\RoomService.class
+com\isj\roommanagement\controller\RoomController.class
+com\isj\roommanagement\RoomManagementApplication.class
+com\isj\roommanagement\model\Room.class

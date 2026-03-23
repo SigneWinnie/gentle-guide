@@ -1,0 +1,93 @@
+.registrations-page.page {
+  max-width: 1200px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.registrations-page .table-card {
+  overflow: hidden;
+}
+
+.registrations-page .table-wrapper {
+  overflow-x: auto;
+}
+
+.registrations-page .table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.registrations-page .table th,
+.registrations-page .table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.registrations-page .table th {
+  text-align: left;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+  background: hsl(var(--muted) / 0.3);
+}
+
+.registrations-page .table tbody tr:hover td {
+  background: hsl(var(--muted) / 0.2);
+}
+
+.registrations-page .table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.registrations-page .cell-main {
+  font-weight: 500;
+  color: hsl(var(--foreground));
+}
+
+.registrations-page .cell-mono {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.75rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.registrations-page .cell-muted {
+  color: hsl(var(--muted-foreground));
+}
+
+.registrations-page .cell-empty {
+  text-align: center;
+  padding: 2rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.reg-status {
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+}
+
+.reg-status--success {
+  background: hsl(var(--success) / 0.15);
+  color: hsl(var(--success));
+}
+
+.reg-status--warning {
+  background: hsl(var(--warning) / 0.15);
+  color: hsl(var(--warning));
+}
+
+.reg-status--destructive {
+  background: hsl(var(--destructive) / 0.15);
+  color: hsl(var(--destructive));
+}
+
+.registrations-page .modal--md {
+  max-width: 28rem;
+}

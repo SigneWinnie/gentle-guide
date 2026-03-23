@@ -1,0 +1,7 @@
+com\isj\studentmanagement\service\StudentService.class
+com\isj\studentmanagement\controller\ApiController.class
+com\isj\studentmanagement\controller\StudentController.class
+com\isj\studentmanagement\StudentManagementApplication.class
+com\isj\studentmanagement\config\CorsConfig.class
+com\isj\studentmanagement\model\Student.class
+com\isj\studentmanagement\repository\StudentRepository.class

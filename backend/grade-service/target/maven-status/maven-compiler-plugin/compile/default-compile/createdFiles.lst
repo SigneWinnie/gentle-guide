@@ -1,0 +1,5 @@
+com\isj\grademanagement\repository\GradeRepository.class
+com\isj\grademanagement\controller\GradeController.class
+com\isj\grademanagement\model\Grade.class
+com\isj\grademanagement\GradeManagementApplication.class
+com\isj\grademanagement\service\GradeService.class

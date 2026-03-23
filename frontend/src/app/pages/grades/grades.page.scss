@@ -1,0 +1,103 @@
+.grades-page.page {
+  max-width: 1200px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.grades-page .table-card {
+  overflow: hidden;
+}
+
+.grades-page .table-wrapper {
+  overflow-x: auto;
+}
+
+.grades-page .table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.grades-page .table th,
+.grades-page .table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.grades-page .table th {
+  text-align: left;
+  font-weight: 500;
+  color: hsl(var(--muted-foreground));
+  background: hsl(var(--muted) / 0.3);
+}
+
+.grades-page .table tbody tr:hover td {
+  background: hsl(var(--muted) / 0.2);
+}
+
+.grades-page .table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.grades-page .cell-main {
+  font-weight: 500;
+  color: hsl(var(--foreground));
+}
+
+.grades-page .cell-mono {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.75rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.grades-page .cell-mono.cell-bold {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+}
+
+.grades-page__course {
+  font-size: 0.75rem;
+}
+
+.grades-page .cell-empty {
+  text-align: center;
+  padding: 2rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.grade-badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.grade-badge--success {
+  background: hsl(var(--success) / 0.15);
+  color: hsl(var(--success));
+}
+
+.grade-badge--destructive {
+  background: hsl(var(--destructive) / 0.15);
+  color: hsl(var(--destructive));
+}
+
+.grades-page .modal--md {
+  max-width: 28rem;
+}
+
+.grades-page__final {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: hsl(var(--muted) / 0.5);
+  border: 1px solid hsl(var(--border));
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.grades-page__final strong {
+  color: hsl(var(--foreground));
+}

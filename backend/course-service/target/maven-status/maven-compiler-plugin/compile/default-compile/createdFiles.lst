@@ -1,0 +1,5 @@
+com\isj\coursemanagement\controller\CourseController.class
+com\isj\coursemanagement\repository\CourseRepository.class
+com\isj\coursemanagement\service\CourseService.class
+com\isj\coursemanagement\CourseManagementApplication.class
+com\isj\coursemanagement\model\Course.class

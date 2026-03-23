@@ -1,147 +1,59 @@
-# Student Management System - Frontend (Angular)
+# Frontend
 
-## Quick Start
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.1.
 
-### Prerequisites
-- Node.js 18+
-- Angular CLI 17+
-- npm or yarn
+## Development server
 
-### Installation & Setup
-
-1. **Create Angular Project**
-```bash
-ng new student-management-frontend --routing --style=css
-cd student-management-frontend
-```
-
-2. **Add Angular Material**
-```bash
-ng add @angular/material
-# Select Indigo/Pink theme
-# Choose Yes for typography
-# Choose Yes for animations
-```
-
-3. **Install Dependencies**
-```bash
-npm install @angular/cdk rxjs chart.js ng2-charts
-```
-
-4. **Generate Structure**
-```bash
-# Components
-ng generate component components/layout/header
-ng generate component components/layout/sidebar
-ng generate component components/layout/footer
-ng generate component pages/dashboard
-ng generate component pages/students
-ng generate component pages/courses
-ng generate component pages/grades
-ng generate component pages/registrations
-ng generate component pages/rooms
-ng generate component pages/schedules
-
-# Services
-ng generate service services/student
-ng generate service services/course
-ng generate service services/grade
-ng generate service services/registration
-ng generate service services/room
-ng generate service services/schedule
-
-# Models
-# Create manually in src/app/models/
-```
-
-5. **Start Development Server**
-```bash
-ng serve --port 4200
-```
-
-Frontend runs on: **http://localhost:4200**
-
-### Directory Structure
-```
-src/
-├── app/
-│   ├── models/                    # Data models/interfaces
-│   │   ├── student.model.ts
-│   │   ├── course.model.ts
-│   │   ├── grade.model.ts
-│   │   ├── registration.model.ts
-│   │   ├── room.model.ts
-│   │   └── schedule.model.ts
-│   ├── services/                  # API services
-│   │   ├── student.service.ts
-│   │   ├── course.service.ts
-│   │   ├── grade.service.ts
-│   │   ├── registration.service.ts
-│   │   ├── room.service.ts
-│   │   └── schedule.service.ts
-│   ├── components/
-│   │   ├── layout/
-│   │   │   ├── header/
-│   │   │   ├── sidebar/
-│   │   │   └── footer/
-│   │   └── shared/
-│   ├── pages/
-│   │   ├── dashboard/
-│   │   ├── students/
-│   │   ├── courses/
-│   │   ├── grades/
-│   │   ├── registrations/
-│   │   ├── rooms/
-│   │   └── schedules/
-│   ├── app.routes.ts              # Routing configuration
-│   ├── app.config.ts              # App configuration
-│   ├── app.component.ts
-│   └── app.component.html
-├── environments/
-│   └── environment.ts
-├── styles.css
-└── index.html
-```
-
-### Key Features
-
-- Dashboard with overview statistics
-- Student management (CRUD operations)
-- Course management
-- Grade recording and tracking
-- Student registrations
-- Room management
-- Schedule management
-- Search and filter functionality
-- Responsive Material Design UI
-- RESTful API integration
-
-### Environment Configuration
-
-Update `src/environments/environment.ts`:
-```typescript
-export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:8080/api'
-};
-```
-
-### Build for Production
+To start a local development server, run:
 
 ```bash
-ng build --configuration production
+ng serve
 ```
 
-### Testing
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Code scaffolding
+
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+
+```bash
+ng generate component component-name
+```
+
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+
+```bash
+ng generate --help
+```
+
+## Building
+
+To build the project run:
+
+```bash
+ng build
+```
+
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+
+## Running unit tests
+
+To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
 
 ```bash
 ng test
 ```
 
-### Troubleshooting
+## Running end-to-end tests
 
-**CORS Error**: Ensure backend is running on http://localhost:8080
+For end-to-end (e2e) testing, run:
 
-**Module Not Found**: Run `npm install` to reinstall dependencies
+```bash
+ng e2e
+```
 
-**Port Already in Use**: Use `ng serve --port 4300`
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

@@ -1,0 +1,5 @@
+com\isj\notificationmanagement\service\NotificationService.class
+com\isj\notificationmanagement\model\Notification.class
+com\isj\notificationmanagement\repository\NotificationRepository.class
+com\isj\notificationmanagement\controller\NotificationController.class
+com\isj\notificationmanagement\NotificationManagementApplication.class

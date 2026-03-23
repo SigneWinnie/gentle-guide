@@ -1,0 +1,129 @@
+<div class="dashboard animate-fade-in">
+  <div class="dashboard__header">
+    <h2 class="dashboard__title">Dashboard</h2>
+    <p class="dashboard__subtitle">Overview of the student management system</p>
+  </div>
+
+  @switch (state().status) {
+    @case ('loading') {
+      <div class="muted">Loading…</div>
+    }
+    @case ('error') {
+      <div class="alert alert--error">{{ state().message }}</div>
+    }
+    @case ('success') {
+      @let d = state().data!;
+      @let sum = summary();
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--primary">🎓</div>
+          <p class="stat-card__value">{{ d.students.length }}</p>
+          <p class="stat-card__label">Students</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--secondary">📋</div>
+          <p class="stat-card__value">{{ d.registrations.length }}</p>
+          <p class="stat-card__label">Registrations</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--accent">📚</div>
+          <p class="stat-card__value">{{ d.courses.length }}</p>
+          <p class="stat-card__label">Courses</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--warning">🧾</div>
+          <p class="stat-card__value">{{ d.grades.length }}</p>
+          <p class="stat-card__label">Grades Entered</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--info">🏢</div>
+          <p class="stat-card__value">{{ d.rooms.length }}</p>
+          <p class="stat-card__label">Rooms</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__icon stat-card__icon--destructive">✉️</div>
+          <p class="stat-card__value">0</p>
+          <p class="stat-card__label">Emails Sent</p>
+        </div>
+      </div>
+
+      <!-- Registration Summary + Fee Collection -->
+      @if (sum) {
+        <div class="dashboard__grid">
+          <div class="card">
+            <h3 class="card__title">Registration Status</h3>
+            <div class="card__list">
+              <div class="card__row">
+                <span class="card__label">Confirmed</span>
+                <span class="badge badge--success">{{ sum.confirmedRegs }}</span>
+              </div>
+              <div class="card__row">
+                <span class="card__label">Pending</span>
+                <span class="badge badge--warning">{{ sum.pendingRegs }}</span>
+              </div>
+              <div class="card__row">
+                <span class="card__label">Cancelled</span>
+                <span class="badge badge--destructive">{{ sum.cancelledRegs }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="card__title">Fee Collection</h3>
+            <div class="card__list">
+              <div class="card__row">
+                <span class="card__label">Total Expected</span>
+                <span class="card__value">{{ sum.totalFees | number }} FCFA</span>
+              </div>
+              <div class="card__row">
+                <span class="card__label">Total Collected</span>
+                <span class="card__value card__value--success">{{ sum.totalPaid | number }} FCFA</span>
+              </div>
+              <div class="card__row">
+                <span class="card__label">Outstanding</span>
+                <span class="card__value card__value--destructive">{{ (sum.totalFees - sum.totalPaid) | number }} FCFA</span>
+              </div>
+              <div class="progress">
+                <div class="progress__bar" [style.width.%]="sum.totalFees > 0 ? (sum.totalPaid / sum.totalFees) * 100 : 0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Recent Students -->
+      <div class="card table-card">
+        <div class="card__header">
+          <h3 class="card__title">Recent Students</h3>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Matricule</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Level</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (s of sum?.recentStudents ?? []; track s.id) {
+                <tr>
+                  <td class="cell-code">{{ s.matricule }}</td>
+                  <td>{{ s.firstName }} {{ s.lastName }}</td>
+                  <td class="cell-muted">{{ s.department ?? '-' }}</td>
+                  <td><span class="badge-level">{{ s.level ?? '-' }}</span></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+    @default {
+      <div class="muted">Idle</div>
+    }
+  }
+</div>

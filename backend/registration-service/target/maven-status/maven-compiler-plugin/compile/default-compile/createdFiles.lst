@@ -1,0 +1,6 @@
+com\isj\registrationmanagement\model\Registration$RegistrationStatus.class
+com\isj\registrationmanagement\RegistrationManagementApplication.class
+com\isj\registrationmanagement\controller\RegistrationController.class
+com\isj\registrationmanagement\repository\RegistrationRepository.class
+com\isj\registrationmanagement\service\RegistrationService.class
+com\isj\registrationmanagement\model\Registration.class
