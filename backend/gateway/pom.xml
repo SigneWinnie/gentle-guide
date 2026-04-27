@@ -8,7 +8,7 @@
         <groupId>com.isj</groupId>
         <artifactId>student-management</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>..</relativePath>
+        <relativePath>../../backend-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>gateway</artifactId>
