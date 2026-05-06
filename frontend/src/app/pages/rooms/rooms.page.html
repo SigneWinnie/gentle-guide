@@ -1,4 +1,5 @@
 <div class="page rooms-page animate-fade-in">
+
   <!-- Rooms section -->
   <section class="rooms-section">
     <div class="page__header">
@@ -141,127 +142,128 @@
     }
   </section>
 
-  <!-- Room Form Modal -->
-  @if (showRoomForm()) {
-    <div class="modal-backdrop" (click)="closeRoomForm()">
-      <div class="modal modal--md" (click)="$event.stopPropagation()" role="dialog">
-        <div class="modal__header">
-          <h3 class="modal__title">{{ editingRoomId() ? 'Edit Room' : 'New Room' }}</h3>
-          <button type="button" class="icon-btn" (click)="closeRoomForm()" aria-label="Close">
-            <svg class="icon-btn__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-        <form (submit)="submitRoom($event)">
-          <div class="modal__body">
-            <div class="grid grid--two">
-              <div class="field">
-                <label for="room-name">Room Name / Number</label>
-                <input id="room-name" required [value]="roomForm().roomNumber" (input)="updateRoomField('roomNumber', $any($event.target).value)" name="roomNumber" />
-              </div>
-              <div class="field">
-                <label for="room-building">Building</label>
-                <input id="room-building" required [value]="roomForm().building" (input)="updateRoomField('building', $any($event.target).value)" name="building" />
-              </div>
-            </div>
-            <div class="grid grid--two">
-              <div class="field">
-                <label for="room-capacity">Capacity</label>
-                <input id="room-capacity" type="number" min="1" required [value]="roomForm().capacity" (input)="updateRoomField('capacity', +$any($event.target).value)" name="capacity" />
-              </div>
-              <div class="field">
-                <label for="room-type">Type</label>
-                <select id="room-type" (change)="updateRoomField('roomType', $any($event.target).value)" name="roomType">
-                  <option value="CLASSROOM" [selected]="roomForm().roomType === 'CLASSROOM'">Classroom</option>
-                  <option value="LAB" [selected]="roomForm().roomType === 'LAB'">Lab</option>
-                  <option value="AMPHITHEATER" [selected]="roomForm().roomType === 'AMPHITHEATER'">Amphitheater</option>
-                </select>
-              </div>
-            </div>
-            <div class="field">
-              <label class="field__checkbox">
-                <input type="checkbox" [checked]="hasFacility(roomForm().facilities, 'projector')" (change)="toggleFacility('projector')" />
-                Projector
-              </label>
-            </div>
-            <div class="field">
-              <label class="field__checkbox">
-                <input type="checkbox" [checked]="hasFacility(roomForm().facilities, 'ac')" (change)="toggleFacility('ac')" />
-                Air Conditioning
-              </label>
-            </div>
-          </div>
-          <div class="modal__footer">
-            <button type="button" class="btn" (click)="closeRoomForm()">Cancel</button>
-            <button type="submit" class="btn btn--primary">{{ editingRoomId() ? 'Update' : 'Create' }}</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  }
-
-  <!-- Schedule Form Modal -->
-  @if (showScheduleForm()) {
-    <div class="modal-backdrop" (click)="closeScheduleForm()">
-      <div class="modal modal--md" (click)="$event.stopPropagation()" role="dialog">
-        <div class="modal__header">
-          <h3 class="modal__title">New Schedule</h3>
-          <button type="button" class="icon-btn" (click)="closeScheduleForm()" aria-label="Close">
-            <svg class="icon-btn__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-        <form (submit)="submitSchedule($event)">
-          <div class="modal__body">
-            <div class="field">
-              <label for="sched-room">Room</label>
-              <select id="sched-room" required (change)="updateScheduleField('roomId', $any($event.target).value === '' ? null : +$any($event.target).value)" name="roomId">
-                <option value="" [selected]="scheduleForm().roomId === null">Select room</option>
-                @for (r of roomsState().data ?? []; track r.id) {
-                  <option [value]="r.id" [selected]="scheduleForm().roomId === r.id">{{ r.roomNumber }} ({{ r.building }})</option>
-                }
-              </select>
-            </div>
-            <div class="field">
-              <label for="sched-course">Course</label>
-              <select id="sched-course" required (change)="updateScheduleField('courseId', $any($event.target).value === '' ? null : +$any($event.target).value)" name="courseId">
-                <option value="" [selected]="scheduleForm().courseId === null">Select course</option>
-                @for (c of courses(); track c.id) {
-                  <option [value]="c.id" [selected]="scheduleForm().courseId === c.id">{{ c.code }} — {{ c.name }}</option>
-                }
-              </select>
-            </div>
-            <div class="field">
-              <label for="sched-day">Day of Week</label>
-              <select id="sched-day" (change)="updateScheduleField('dayOfWeek', $any($event.target).value)" name="dayOfWeek">
-                @for (d of days; track d) {
-                  <option [value]="d" [selected]="scheduleForm().dayOfWeek === d">{{ d.charAt(0) + d.slice(1).toLowerCase() }}</option>
-                }
-              </select>
-            </div>
-            <div class="grid grid--two">
-              <div class="field">
-                <label for="sched-start">Start Time</label>
-                <input id="sched-start" type="time" required [value]="scheduleForm().startTime" (input)="updateScheduleField('startTime', $any($event.target).value)" name="startTime" />
-              </div>
-              <div class="field">
-                <label for="sched-end">End Time</label>
-                <input id="sched-end" type="time" required [value]="scheduleForm().endTime" (input)="updateScheduleField('endTime', $any($event.target).value)" name="endTime" />
-              </div>
-            </div>
-            <div class="field">
-              <label for="sched-year">Academic Year</label>
-              <input id="sched-year" [value]="scheduleForm().academicYear" (input)="updateScheduleField('academicYear', $any($event.target).value)" name="academicYear" />
-            </div>
-          </div>
-          <div class="modal__footer">
-            <button type="button" class="btn" (click)="closeScheduleForm()">Cancel</button>
-            <button type="submit" class="btn btn--secondary">Create</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  }
 </div>
+
+<!-- Room Form Modal — OUTSIDE .page div so position:fixed centers on viewport -->
+@if (showRoomForm()) {
+  <div class="modal-backdrop" (click)="closeRoomForm()">
+    <div class="modal modal--md" (click)="$event.stopPropagation()" role="dialog">
+      <div class="modal__header">
+        <h3 class="modal__title">{{ editingRoomId() ? 'Edit Room' : 'New Room' }}</h3>
+        <button type="button" class="icon-btn" (click)="closeRoomForm()" aria-label="Close">
+          <svg class="icon-btn__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <form (submit)="submitRoom($event)">
+        <div class="modal__body">
+          <div class="grid grid--two">
+            <div class="field">
+              <label for="room-name">Room Name / Number</label>
+              <input id="room-name" required [value]="roomForm().roomNumber" (input)="updateRoomField('roomNumber', $any($event.target).value)" name="roomNumber" />
+            </div>
+            <div class="field">
+              <label for="room-building">Building</label>
+              <input id="room-building" required [value]="roomForm().building" (input)="updateRoomField('building', $any($event.target).value)" name="building" />
+            </div>
+          </div>
+          <div class="grid grid--two">
+            <div class="field">
+              <label for="room-capacity">Capacity</label>
+              <input id="room-capacity" type="number" min="1" required [value]="roomForm().capacity" (input)="updateRoomField('capacity', +$any($event.target).value)" name="capacity" />
+            </div>
+            <div class="field">
+              <label for="room-type">Type</label>
+              <select id="room-type" (change)="updateRoomField('roomType', $any($event.target).value)" name="roomType">
+                <option value="CLASSROOM" [selected]="roomForm().roomType === 'CLASSROOM'">Classroom</option>
+                <option value="LAB" [selected]="roomForm().roomType === 'LAB'">Lab</option>
+                <option value="AMPHITHEATER" [selected]="roomForm().roomType === 'AMPHITHEATER'">Amphitheater</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label class="field__checkbox">
+              <input type="checkbox" [checked]="hasFacility(roomForm().facilities, 'projector')" (change)="toggleFacility('projector')" />
+              Projector
+            </label>
+          </div>
+          <div class="field">
+            <label class="field__checkbox">
+              <input type="checkbox" [checked]="hasFacility(roomForm().facilities, 'ac')" (change)="toggleFacility('ac')" />
+              Air Conditioning
+            </label>
+          </div>
+        </div>
+        <div class="modal__footer">
+          <button type="button" class="btn" (click)="closeRoomForm()">Cancel</button>
+          <button type="submit" class="btn btn--primary">{{ editingRoomId() ? 'Update' : 'Create' }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+}
+
+<!-- Schedule Form Modal — OUTSIDE .page div so position:fixed centers on viewport -->
+@if (showScheduleForm()) {
+  <div class="modal-backdrop" (click)="closeScheduleForm()">
+    <div class="modal modal--md" (click)="$event.stopPropagation()" role="dialog">
+      <div class="modal__header">
+        <h3 class="modal__title">New Schedule</h3>
+        <button type="button" class="icon-btn" (click)="closeScheduleForm()" aria-label="Close">
+          <svg class="icon-btn__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <form (submit)="submitSchedule($event)">
+        <div class="modal__body">
+          <div class="field">
+            <label for="sched-room">Room</label>
+            <select id="sched-room" required (change)="updateScheduleField('roomId', $any($event.target).value === '' ? null : +$any($event.target).value)" name="roomId">
+              <option value="" [selected]="scheduleForm().roomId === null">Select room</option>
+              @for (r of roomsState().data ?? []; track r.id) {
+                <option [value]="r.id" [selected]="scheduleForm().roomId === r.id">{{ r.roomNumber }} ({{ r.building }})</option>
+              }
+            </select>
+          </div>
+          <div class="field">
+            <label for="sched-course">Course</label>
+            <select id="sched-course" required (change)="updateScheduleField('courseId', $any($event.target).value === '' ? null : +$any($event.target).value)" name="courseId">
+              <option value="" [selected]="scheduleForm().courseId === null">Select course</option>
+              @for (c of courses(); track c.id) {
+                <option [value]="c.id" [selected]="scheduleForm().courseId === c.id">{{ c.code }} — {{ c.name }}</option>
+              }
+            </select>
+          </div>
+          <div class="field">
+            <label for="sched-day">Day of Week</label>
+            <select id="sched-day" (change)="updateScheduleField('dayOfWeek', $any($event.target).value)" name="dayOfWeek">
+              @for (d of days; track d) {
+                <option [value]="d" [selected]="scheduleForm().dayOfWeek === d">{{ d.charAt(0) + d.slice(1).toLowerCase() }}</option>
+              }
+            </select>
+          </div>
+          <div class="grid grid--two">
+            <div class="field">
+              <label for="sched-start">Start Time</label>
+              <input id="sched-start" type="time" required [value]="scheduleForm().startTime" (input)="updateScheduleField('startTime', $any($event.target).value)" name="startTime" />
+            </div>
+            <div class="field">
+              <label for="sched-end">End Time</label>
+              <input id="sched-end" type="time" required [value]="scheduleForm().endTime" (input)="updateScheduleField('endTime', $any($event.target).value)" name="endTime" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="sched-year">Academic Year</label>
+            <input id="sched-year" [value]="scheduleForm().academicYear" (input)="updateScheduleField('academicYear', $any($event.target).value)" name="academicYear" />
+          </div>
+        </div>
+        <div class="modal__footer">
+          <button type="button" class="btn" (click)="closeScheduleForm()">Cancel</button>
+          <button type="submit" class="btn btn--secondary">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

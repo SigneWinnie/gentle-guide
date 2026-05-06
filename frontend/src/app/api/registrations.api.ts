@@ -10,7 +10,8 @@ export class RegistrationsApi {
     return this.api.get<Registration[]>('/api/registrations');
   }
 
-  create(body: { student: { id: number }; course: { id: number }; academicYear: string; status?: string }) {
+  // The backend expects flat { studentId, courseId } — NOT nested { student: { id }, course: { id } }
+  create(body: { studentId: number; courseId: number; academicYear: string; status?: string }) {
     return this.api.post<Registration>('/api/registrations', body);
   }
 
@@ -22,4 +23,3 @@ export class RegistrationsApi {
     return this.api.delete(`/api/registrations/${id}`);
   }
 }
-

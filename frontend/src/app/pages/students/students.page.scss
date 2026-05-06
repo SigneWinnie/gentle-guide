@@ -1,3 +1,9 @@
+/* Make the host element block-level so position:fixed on the modal
+   works relative to the viewport, not clipped by the component */
+:host {
+  display: block;
+}
+
 .page {
   max-width: 1200px;
   margin-inline: auto;
@@ -53,7 +59,8 @@
 }
 
 .btn__icon {
-  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
 }
 
 .search {
@@ -66,7 +73,8 @@
   inset-block-start: 50%;
   inset-inline-start: 0.75rem;
   transform: translateY(-50%);
-  font-size: 0.875rem;
+  width: 0.875rem;
+  height: 0.875rem;
   color: hsl(var(--muted-foreground));
 }
 
@@ -78,6 +86,7 @@
   background: hsl(var(--card));
   color: hsl(var(--foreground));
   font-size: 0.875rem;
+  box-sizing: border-box;
 }
 
 .search__input::placeholder {
@@ -170,6 +179,11 @@ tbody tr:hover td {
   color: hsl(var(--muted-foreground));
 }
 
+.icon-btn__icon {
+  width: 1rem;
+  height: 1rem;
+}
+
 .icon-btn:hover {
   background: hsl(var(--muted) / 0.7);
   color: hsl(var(--foreground));
@@ -197,6 +211,7 @@ tbody tr:hover td {
   border: 1px solid hsl(var(--destructive) / 0.2);
 }
 
+/* ── Modal ── */
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -219,6 +234,7 @@ tbody tr:hover td {
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-elevated);
+  overflow: hidden;
 }
 
 .modal__header {
@@ -227,6 +243,7 @@ tbody tr:hover td {
   justify-content: space-between;
   padding: 0.9rem 1.5rem;
   border-bottom: 1px solid hsl(var(--border));
+  flex-shrink: 0;
 }
 
 .modal__title {
@@ -241,6 +258,7 @@ tbody tr:hover td {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  flex: 1;
 }
 
 .modal__footer {
@@ -249,8 +267,10 @@ tbody tr:hover td {
   display: flex;
   justify-content: flex-end;
   gap: 0.6rem;
+  flex-shrink: 0;
 }
 
+/* ── Grid & Fields ── */
 .grid {
   display: grid;
   gap: 0.75rem;
@@ -288,6 +308,7 @@ tbody tr:hover td {
   font-size: 0.85rem;
 }
 
+/* ── Animation ── */
 .animate-fade-in {
   animation: fadeIn 0.4s ease-out;
 }
@@ -303,6 +324,7 @@ tbody tr:hover td {
   }
 }
 
+/* ── Responsive table columns ── */
 .hidden-md {
   display: none;
 }
@@ -322,4 +344,3 @@ tbody tr:hover td {
     display: table-cell;
   }
 }
-

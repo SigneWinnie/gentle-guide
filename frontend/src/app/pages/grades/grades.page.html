@@ -65,62 +65,63 @@
       <div class="muted">Idle</div>
     }
   }
-
-  @if (showForm()) {
-    <div class="modal-backdrop" (click)="closeForm()">
-      <div class="modal modal--md" (click)="$event.stopPropagation()" role="dialog">
-        <div class="modal__header">
-          <h3 class="modal__title">Add Grade</h3>
-          <button type="button" class="icon-btn" (click)="closeForm()" aria-label="Close">
-            <svg class="icon-btn__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-        <form (submit)="submit($event)">
-          <div class="modal__body">
-            <div class="field">
-              <label for="grade-student">Student</label>
-              <select id="grade-student" required (change)="updateField('studentId', $any($event.target).value === '' ? null : +$any($event.target).value)" name="student">
-                <option value="" [selected]="form().studentId === null">Select student</option>
-                @for (s of students(); track s.id) {
-                  <option [value]="s.id" [selected]="form().studentId === s.id">{{ s.matricule }} — {{ s.firstName }} {{ s.lastName }}</option>
-                }
-              </select>
-            </div>
-            <div class="field">
-              <label for="grade-course">Course</label>
-              <select id="grade-course" required (change)="updateField('courseId', $any($event.target).value === '' ? null : +$any($event.target).value)" name="course">
-                <option value="" [selected]="form().courseId === null">Select course</option>
-                @for (c of courses(); track c.id) {
-                  <option [value]="c.id" [selected]="form().courseId === c.id">{{ c.code }} — {{ c.name }}</option>
-                }
-              </select>
-            </div>
-            <div class="field">
-              <label for="grade-year">Academic Year</label>
-              <input id="grade-year" required [value]="form().academicYear" (input)="updateField('academicYear', $any($event.target).value)" name="academicYear" />
-            </div>
-            <div class="grid grid--two">
-              <div class="field">
-                <label for="grade-cc">CC Score (/20)</label>
-                <input id="grade-cc" type="number" min="0" max="20" step="0.5" required [value]="form().ccScore" (input)="updateField('ccScore', +$any($event.target).value)" name="ccScore" />
-              </div>
-              <div class="field">
-                <label for="grade-exam">Exam Score (/20)</label>
-                <input id="grade-exam" type="number" min="0" max="20" step="0.5" required [value]="form().examScore" (input)="updateField('examScore', +$any($event.target).value)" name="examScore" />
-              </div>
-            </div>
-            <div class="grades-page__final">
-              Final = CC × 0.4 + Exam × 0.6 = <strong>{{ finalScore() | number: '1.2-2' }}/20</strong>
-            </div>
-          </div>
-          <div class="modal__footer">
-            <button type="button" class="btn" (click)="closeForm()">Cancel</button>
-            <button type="submit" class="btn btn--primary">Submit Grade</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  }
 </div>
+
+<!-- Modal is OUTSIDE .page div so position:fixed centers correctly on viewport -->
+@if (showForm()) {
+  <div class="modal-backdrop" (click)="closeForm()">
+    <div class="modal modal--md" (click)="$event.stopPropagation()" role="dialog">
+      <div class="modal__header">
+        <h3 class="modal__title">Add Grade</h3>
+        <button type="button" class="icon-btn" (click)="closeForm()" aria-label="Close">
+          <svg class="icon-btn__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <form (submit)="submit($event)">
+        <div class="modal__body">
+          <div class="field">
+            <label for="grade-student">Student</label>
+            <select id="grade-student" required (change)="updateField('studentId', $any($event.target).value === '' ? null : +$any($event.target).value)" name="student">
+              <option value="" [selected]="form().studentId === null">Select student</option>
+              @for (s of students(); track s.id) {
+                <option [value]="s.id" [selected]="form().studentId === s.id">{{ s.matricule }} — {{ s.firstName }} {{ s.lastName }}</option>
+              }
+            </select>
+          </div>
+          <div class="field">
+            <label for="grade-course">Course</label>
+            <select id="grade-course" required (change)="updateField('courseId', $any($event.target).value === '' ? null : +$any($event.target).value)" name="course">
+              <option value="" [selected]="form().courseId === null">Select course</option>
+              @for (c of courses(); track c.id) {
+                <option [value]="c.id" [selected]="form().courseId === c.id">{{ c.code }} — {{ c.name }}</option>
+              }
+            </select>
+          </div>
+          <div class="field">
+            <label for="grade-year">Academic Year</label>
+            <input id="grade-year" required [value]="form().academicYear" (input)="updateField('academicYear', $any($event.target).value)" name="academicYear" />
+          </div>
+          <div class="grid grid--two">
+            <div class="field">
+              <label for="grade-cc">CC Score (/20)</label>
+              <input id="grade-cc" type="number" min="0" max="20" step="0.5" required [value]="form().ccScore" (input)="updateField('ccScore', +$any($event.target).value)" name="ccScore" />
+            </div>
+            <div class="field">
+              <label for="grade-exam">Exam Score (/20)</label>
+              <input id="grade-exam" type="number" min="0" max="20" step="0.5" required [value]="form().examScore" (input)="updateField('examScore', +$any($event.target).value)" name="examScore" />
+            </div>
+          </div>
+          <div class="grades-page__final">
+            Final = CC × 0.4 + Exam × 0.6 = <strong>{{ finalScore() | number: '1.2-2' }}/20</strong>
+          </div>
+        </div>
+        <div class="modal__footer">
+          <button type="button" class="btn" (click)="closeForm()">Cancel</button>
+          <button type="submit" class="btn btn--primary">Submit Grade</button>
+        </div>
+      </form>
+    </div>
+  </div>
+}

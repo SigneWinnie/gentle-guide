@@ -19,8 +19,8 @@ type CourseForm = {
 })
 export class CoursesPage {
   private readonly api = inject(CoursesApi);
-  protected readonly state = signal<LoadState<Course[]>>({ status: 'loading' });
 
+  protected readonly state = signal<LoadState<Course[]>>({ status: 'loading' });
   protected readonly showForm = signal(false);
   protected readonly editingId = signal<number | null>(null);
   protected readonly form = signal<CourseForm>({
@@ -80,6 +80,7 @@ export class CoursesPage {
     e?.preventDefault();
     const f = this.form();
     const id = this.editingId();
+
     const payload = {
       code: f.code,
       name: f.name,
@@ -87,6 +88,7 @@ export class CoursesPage {
       department: f.department || null,
       semester: f.semester,
     };
+
     if (id != null) {
       this.api.update(id, payload).subscribe({
         next: () => {

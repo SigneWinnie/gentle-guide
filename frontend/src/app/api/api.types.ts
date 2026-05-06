@@ -41,10 +41,12 @@ export interface Grade {
   updatedAt?: string | null;
 }
 
+// Registration uses flat IDs — the backend returns studentId and courseId as numbers,
+// not nested objects. Sending { studentId, courseId } is what the backend expects.
 export interface Registration {
   id: number;
-  student: Student;
-  course: Course;
+  studentId: number;
+  courseId: number;
   academicYear?: string | null;
   status?: 'ACTIVE' | 'COMPLETED' | 'CANCELLED' | string | null;
   completionDate?: string | null;
@@ -87,4 +89,3 @@ export interface Notification {
   createdAt?: string | null;
   updatedAt?: string | null;
 }
-

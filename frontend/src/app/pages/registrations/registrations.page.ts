@@ -29,7 +29,7 @@ export class RegistrationsPage {
   protected readonly form = signal<RegForm>({
     studentId: null,
     courseId: null,
-    academicYear: '2024-2025',
+    academicYear: '2025-2026',
   });
 
   constructor() {
@@ -47,17 +47,25 @@ export class RegistrationsPage {
     });
   }
 
+  // Resolve student name from the already-loaded students list using the flat studentId
   protected getStudentName(r: Registration): string {
-    const s = r.student;
-    if (!s) return '—';
-    return `${s.firstName ?? ''} ${s.lastName ?? ''}`.trim() || s.matricule || '—';
+    const student = this.students().find((s) => s.id === r.studentId);
+    if (!student) return `Student #${r.studentId ?? '—'}`;
+    return `${student.firstName ?? ''} ${student.lastName ?? ''}`.trim() || student.matricule || '—';
+  }
+
+  // Resolve course name from the already-loaded courses list using the flat courseId
+  protected getCourseName(r: Registration): string {
+    const course = this.courses().find((c) => c.id === r.courseId);
+    if (!course) return `Course #${r.courseId ?? '—'}`;
+    return `${course.code ?? ''} — ${course.name ?? ''}`.trim() || '—';
   }
 
   protected openCreate() {
     this.form.set({
       studentId: null,
       courseId: null,
-      academicYear: '2024-2025',
+      academicYear: '2025-2026',
     });
     this.showForm.set(true);
   }
@@ -74,10 +82,12 @@ export class RegistrationsPage {
     e?.preventDefault();
     const f = this.form();
     if (f.studentId == null || f.courseId == null) return;
+
+    // Send flat studentId and courseId — this is what the backend expects
     this.regApi
       .create({
-        student: { id: f.studentId },
-        course: { id: f.courseId },
+        studentId: f.studentId,
+        courseId: f.courseId,
         academicYear: f.academicYear,
         status: 'ACTIVE',
       })

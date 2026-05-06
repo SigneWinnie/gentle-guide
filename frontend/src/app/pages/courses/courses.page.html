@@ -53,54 +53,55 @@
       <div class="muted">Idle</div>
     }
   }
+</div>
 
-  @if (showForm()) {
-    <div class="modal-backdrop" (click)="closeForm()">
-      <div class="modal" (click)="$event.stopPropagation()" role="dialog">
-        <div class="modal__header">
-          <h3 class="modal__title">{{ editingId() ? 'Edit Course' : 'New Course' }}</h3>
-          <button type="button" class="icon-btn" (click)="closeForm()" aria-label="Close">
-            <svg class="icon-btn__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-        <form (submit)="submit($event)">
-          <div class="modal__body">
-            <div class="grid grid--two">
-              <div class="field">
-                <label for="course-code">Code</label>
-                <input id="course-code" required [value]="form().code" (input)="updateField('code', $any($event.target).value)" name="code" />
-              </div>
-              <div class="field">
-                <label for="course-credits">Credits</label>
-                <input id="course-credits" type="number" min="1" required [value]="form().credits" (input)="updateField('credits', +$any($event.target).value)" name="credits" />
-              </div>
+<!-- Modal is OUTSIDE .page div so position:fixed centers correctly on viewport -->
+@if (showForm()) {
+  <div class="modal-backdrop" (click)="closeForm()">
+    <div class="modal" (click)="$event.stopPropagation()" role="dialog">
+      <div class="modal__header">
+        <h3 class="modal__title">{{ editingId() ? 'Edit Course' : 'New Course' }}</h3>
+        <button type="button" class="icon-btn" (click)="closeForm()" aria-label="Close">
+          <svg class="icon-btn__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <form (submit)="submit($event)">
+        <div class="modal__body">
+          <div class="grid grid--two">
+            <div class="field">
+              <label for="course-code">Code</label>
+              <input id="course-code" required [value]="form().code" (input)="updateField('code', $any($event.target).value)" name="code" />
             </div>
             <div class="field">
-              <label for="course-name">Course Name</label>
-              <input id="course-name" required [value]="form().name" (input)="updateField('name', $any($event.target).value)" name="name" />
-            </div>
-            <div class="grid grid--two">
-              <div class="field">
-                <label for="course-department">Department</label>
-                <input id="course-department" required [value]="form().department" (input)="updateField('department', $any($event.target).value)" name="department" />
-              </div>
-              <div class="field">
-                <label for="course-semester">Semester</label>
-                <select id="course-semester" (change)="updateField('semester', +$any($event.target).value)" name="semester">
-                  <option [value]="1" [selected]="form().semester === 1">1</option>
-                  <option [value]="2" [selected]="form().semester === 2">2</option>
-                </select>
-              </div>
+              <label for="course-credits">Credits</label>
+              <input id="course-credits" type="number" min="1" required [value]="form().credits" (input)="updateField('credits', +$any($event.target).value)" name="credits" />
             </div>
           </div>
-          <div class="modal__footer">
-            <button type="button" class="btn" (click)="closeForm()">Cancel</button>
-            <button type="submit" class="btn btn--primary">{{ editingId() ? 'Update' : 'Create' }}</button>
+          <div class="field">
+            <label for="course-name">Course Name</label>
+            <input id="course-name" required [value]="form().name" (input)="updateField('name', $any($event.target).value)" name="name" />
           </div>
-        </form>
-      </div>
+          <div class="grid grid--two">
+            <div class="field">
+              <label for="course-department">Department</label>
+              <input id="course-department" required [value]="form().department" (input)="updateField('department', $any($event.target).value)" name="department" />
+            </div>
+            <div class="field">
+              <label for="course-semester">Semester</label>
+              <select id="course-semester" (change)="updateField('semester', +$any($event.target).value)" name="semester">
+                <option [value]="1" [selected]="form().semester === 1">1</option>
+                <option [value]="2" [selected]="form().semester === 2">2</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal__footer">
+          <button type="button" class="btn" (click)="closeForm()">Cancel</button>
+          <button type="submit" class="btn btn--primary">{{ editingId() ? 'Update' : 'Create' }}</button>
+        </div>
+      </form>
     </div>
-  }
-</div>
+  </div>
+}

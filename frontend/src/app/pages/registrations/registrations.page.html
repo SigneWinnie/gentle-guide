@@ -40,7 +40,7 @@
                 <tr>
                   <td class="cell-main">{{ getStudentName(r) }}</td>
                   <td class="cell-mono">{{ r.academicYear ?? '—' }}</td>
-                  <td class="hidden-md cell-muted">{{ r.course?.code ?? '—' }} — {{ r.course?.name ?? '—' }}</td>
+                  <td class="hidden-md cell-muted">{{ getCourseName(r) }}</td>
                   <td>
                     <select
                       [class]="statusClass(r.status)"
@@ -73,51 +73,75 @@
       <div class="muted">Idle</div>
     }
   }
-
-  @if (showForm()) {
-    <div class="modal-backdrop" (click)="closeForm()">
-      <div class="modal modal--md" (click)="$event.stopPropagation()" role="dialog">
-        <div class="modal__header">
-          <h3 class="modal__title">New Registration</h3>
-          <button type="button" class="icon-btn" (click)="closeForm()" aria-label="Close">
-            <svg class="icon-btn__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
-        </div>
-        <form (submit)="submit($event)">
-          <div class="modal__body">
-            <div class="field">
-              <label for="reg-student">Student</label>
-              <select id="reg-student" required (change)="updateField('studentId', $any($event.target).value === '' ? null : +$any($event.target).value)" name="student">
-                <option value="" [selected]="form().studentId === null">Select student</option>
-                @for (s of students(); track s.id) {
-                  <option [value]="s.id" [selected]="form().studentId === s.id">{{ s.matricule }} — {{ s.firstName }} {{ s.lastName }}</option>
-                }
-              </select>
-            </div>
-            <div class="grid grid--two">
-              <div class="field">
-                <label for="reg-year">Academic Year</label>
-                <input id="reg-year" required [value]="form().academicYear" (input)="updateField('academicYear', $any($event.target).value)" name="academicYear" />
-              </div>
-              <div class="field">
-                <label for="reg-course">Course</label>
-                <select id="reg-course" required (change)="updateField('courseId', $any($event.target).value === '' ? null : +$any($event.target).value)" name="course">
-                  <option value="" [selected]="form().courseId === null">Select course</option>
-                  @for (c of courses(); track c.id) {
-                    <option [value]="c.id" [selected]="form().courseId === c.id">{{ c.code }} — {{ c.name }}</option>
-                  }
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="modal__footer">
-            <button type="button" class="btn" (click)="closeForm()">Cancel</button>
-            <button type="submit" class="btn btn--primary">Register</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  }
 </div>
+
+<!-- Modal is OUTSIDE the .page div so position:fixed works correctly and it is always centered -->
+@if (showForm()) {
+  <div class="modal-backdrop" (click)="closeForm()">
+    <div class="modal modal--md" (click)="$event.stopPropagation()" role="dialog">
+      <div class="modal__header">
+        <h3 class="modal__title">New Registration</h3>
+        <button type="button" class="icon-btn" (click)="closeForm()" aria-label="Close">
+          <svg class="icon-btn__icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <form (submit)="submit($event)">
+        <div class="modal__body">
+          <div class="field">
+            <label for="reg-student">Student</label>
+            <select
+              id="reg-student"
+              required
+              (change)="updateField('studentId', $any($event.target).value === '' ? null : +$any($event.target).value)"
+              name="student"
+            >
+              <option value="" [selected]="form().studentId === null">Select student</option>
+              @for (s of students(); track s.id) {
+                <option [value]="s.id" [selected]="form().studentId === s.id">
+                  {{ s.matricule }} — {{ s.firstName }} {{ s.lastName }}
+                </option>
+              }
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="reg-course">Course</label>
+            <select
+              id="reg-course"
+              required
+              (change)="updateField('courseId', $any($event.target).value === '' ? null : +$any($event.target).value)"
+              name="course"
+            >
+              <option value="" [selected]="form().courseId === null">Select course</option>
+              @for (c of courses(); track c.id) {
+                <option [value]="c.id" [selected]="form().courseId === c.id">
+                  {{ c.code }} — {{ c.name }}
+                </option>
+              }
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="reg-year">Academic Year</label>
+            <input
+              id="reg-year"
+              required
+              [value]="form().academicYear"
+              (input)="updateField('academicYear', $any($event.target).value)"
+              name="academicYear"
+              placeholder="e.g. 2025-2026"
+            />
+          </div>
+        </div>
+
+        <div class="modal__footer">
+          <button type="button" class="btn" (click)="closeForm()">Cancel</button>
+          <button type="submit" class="btn btn--primary">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+}
